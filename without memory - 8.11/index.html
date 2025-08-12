@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GPT‑style Chat</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Fallback if styles.css fails to load */
+    body{font-family:system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; margin:0}
+  </style>
+</head>
+<body>
+  <div id="chat-container">
+    <!-- Transcript panel -->
+    <div id="history" aria-live="polite" aria-label="Chat transcript"></div>
+
+    <!-- Composer (sticky) -->
+    <div id="composer">
+      <div class="composer-inner">
+        <textarea id="user-input" placeholder="Message…" aria-label="Type your message" rows="1"></textarea>
+        <button id="send-button" aria-label="Send message">Send</button>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;max-width:900px;margin:6px auto 0;padding:0 2px;gap:8px;">
+        <button id="clear-history" aria-label="Clear conversation" title="Clear conversation" style="border:none;background:transparent;color:#64748b;cursor:pointer">Clear</button>
+        <small style="color:#94a3b8">Built with OpenAI API • Demo</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- Optionally show last reply separately (kept for backward compat, hidden by CSS) -->
+  <div id="response" hidden></div>
+
+  <noscript>
+    <p style="padding:12px">Please enable JavaScript to use the chat.</p>
+  </noscript>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+/* ============ Root & Reset ============ */
+:root{
+  --bg: #f7f7f8;
+  --text: #0b0b0f;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --user-bubble: #eef0f3;          /* light gray for user */
+  --assistant-bubble: #ffffff;     /* white for AI */
+  --radius: 14px;
+  --shadow: 0 1px 1px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.06);
+  --maxw: 740px;                   /* typical ChatGPT content width */
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; padding: 0; }
+body{
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+}
+
+/* ============ Layout ============ */
+.app{ min-height: 100dvh; display: grid; grid-template-rows: auto 1fr auto; }
+
+.header{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 18px 16px 8px;
+  font-weight: 600;
+}
+
+/* ============ Conversation Column ============ */
+#history{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 12px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Each message row */
+.msg{
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Assistant (left) */
+.msg.assistant{
+  justify-content: flex-start;
+}
+
+/* User (right) */
+.msg.user{
+  justify-content: flex-end;
+  text-align: right;
+}
+
+/* Optional tiny role label */
+.msg .role{
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+/* Bubble */
+.msg .text{
+  display: inline-block;
+  max-width: 85%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  text-align: left;
+}
+
+/* Colors */
+.msg.assistant .text{ background: var(--assistant-bubble); }
+.msg.user .text{ background: var(--user-bubble); }
+
+/* ============ Rich content inside bubbles ============ */
+.msg .text p{ margin: 0 0 10px; }
+.msg .text p:last-child{ margin-bottom: 0; }
+
+.msg .text a{ color: #0b7cff; text-decoration: none; }
+.msg .text a:hover{ text-decoration: underline; }
+
+.msg .text ul, .msg .text ol{ margin: 8px 0 8px 18px; }
+
+.msg .text code{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.95em;
+  background: #f3f4f6;
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+
+.msg .text pre{
+  margin: 10px 0;
+  padding: 12px;
+  overflow: auto;
+  background: #0b1020;
+  color: #e5e7eb;
+  border-radius: 10px;
+  border: 1px solid #101425;
+}
+.msg .text pre code{
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: inherit;
+}
+
+.msg .text blockquote{
+  margin: 10px 0;
+  padding: 8px 12px;
+  border-left: 3px solid #d1d5db;
+  color: #374151;
+  background: #f9fafb;
+  border-radius: 6px;
+}
+
+.msg .text img{
+  max-width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+/* ============ Composer ============ */
+.composer{
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to top, var(--bg), color-mix(in srgb, var(--bg) 70%, transparent));
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0));
+  border-top: 1px solid var(--border);
+  z-index: 1000;
+}
+
+.composer-inner{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+#user-input{
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: #fff;
+  outline: none;
+  resize: vertical;
+  box-shadow: var(--shadow);
+  font: inherit;
+}
+#user-input:focus{
+  border-color: #cbd5e1;
+  box-shadow: 0 0 0 3px rgba(16, 163, 127, .1), var(--shadow);
+}
+
+#send-button{
+  height: 46px;
+  padding: 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform .06s ease, box-shadow .2s ease;
+}
+#send-button:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,.08);
+}
+#send-button:active{ transform: translateY(0); }
+
+#clear-history{
+  margin-top: 8px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+#clear-history:hover{ color: #111827; }
+
+/* ============ Scrollbars ============ */
+#history::-webkit-scrollbar,
+.msg .text pre::-webkit-scrollbar{ height: 8px; width: 8px; }
+#history::-webkit-scrollbar-thumb,
+.msg .text pre::-webkit-scrollbar-thumb{
+  background: #d1d5db;
+  border-radius: 10px;
+}
+
+/* ============ Mobile tweaks ============ */
+@media (max-width: 480px){
+  :root{ --maxw: 100%; }
+  .msg .text{ max-width: 95%; }
+}
+
+  
