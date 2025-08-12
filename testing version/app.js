@@ -1,9 +1,27 @@
-const apiKey = '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'; // Replace with your actual API key
+const apiKey = 'realkey'
 const sendButton = document.getElementById('send-button');
 const userInput = document.getElementById('user-input');
 const responseDiv = document.getElementById('response');
 const conversationContext = "You are a human-like conversational AI agent. You will generate responses using information exclusively from the official websites of the FDA (Food and Drug Administration), CDC (Centers for Disease Control and Prevention), and NIH (National Institutes of Health).";
 const historyDiv  = document.getElementById('history');
+
+// start of config extraction code
+/*const fs = require('fs');
+const path = require('path');
+
+// Assuming your config file is named 'config.json'
+const configFilePath = path.join(__dirname, 'config.json');
+
+try {
+  const configFileContent = fs.readFileSync(configFilePath, 'utf8');
+  const apiKey = JSON.parse(configFileContent);
+  console.log('Configuration loaded:', config);
+} catch (error) {
+  console.error('Error reading or parsing config file:', error);
+}*/
+
+
+// end of config extraction code
 
 
 // Use let so we can replace the array when loading from storage
