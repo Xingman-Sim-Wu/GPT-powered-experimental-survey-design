@@ -1,4 +1,4 @@
-const apiKey = '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'; // Replace with your actual API key
+const apiKey = 'realkey'; // Replace with your actual API key
 const sendButton = document.getElementById('send-button');
 const userInput = document.getElementById('user-input');
 const responseDiv = document.getElementById('response');
